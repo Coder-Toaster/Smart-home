@@ -1,0 +1,75 @@
+sequence:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      color_temp_kelvin: 2000
+      brightness_pct: 2
+    target:
+      entity_id: light.l_n
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 150
+  - action: light.turn_on
+    metadata: {}
+    data:
+      color_temp_kelvin: 2000
+      brightness_pct: 2
+    target:
+      entity_id: light.l_ne
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 150
+  - action: light.turn_on
+    metadata: {}
+    data:
+      color_temp_kelvin: 2000
+      brightness_pct: 2
+    target:
+      entity_id:
+        - light.l_se
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 150
+  - action: light.turn_on
+    metadata: {}
+    data:
+      color_temp_kelvin: 2000
+      brightness_pct: 2
+    target:
+      entity_id:
+        - light.l_s
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 150
+  - action: light.turn_on
+    metadata: {}
+    data:
+      color_temp_kelvin: 2000
+      brightness_pct: 2
+    target:
+      entity_id:
+        - light.l_sw
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 150
+  - action: light.turn_on
+    metadata: {}
+    data:
+      color_temp_kelvin: 2000
+      brightness_pct: 2
+    target:
+      entity_id:
+        - light.l_nw
+alias: Livingroom mainlight dim startup circular
+description: ""
+icon: mdi:checkbox-blank-circle-outline

@@ -1,0 +1,28 @@
+alias: Set printer enclosure fans on
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.p2s_22e8ba581100200_current_stage
+    to:
+      - prepare
+      - running
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+conditions:
+  - condition: device
+    device_id: 56a2001654a9461095253f0a6f899e3a
+    domain: fan
+    entity_id: fe839f4629788fc4f319c57adbaceb63
+    type: is_off
+actions:
+  - action: fan.turn_on
+    metadata: {}
+    target:
+      device_id:
+        - 56a2001654a9461095253f0a6f899e3a
+    data:
+      percentage: 30
+mode: single

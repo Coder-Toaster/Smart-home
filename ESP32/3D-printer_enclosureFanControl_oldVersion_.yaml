@@ -1,0 +1,56 @@
+esphome:
+  name: printer-enclosure-fan-control
+  friendly_name: Printer enclosure fan control
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: ###
+ota:
+  - platform: esphome
+    password: ###
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot
+  ap:
+    ssid: "###
+    password: ###
+
+captive_portal:
+
+output:
+  - platform: ledc
+    pin: GPIO4
+    id: fanhub_pwm
+    frequency: 25000 Hz
+    inverted: true   # NPN transisor
+fan:
+  - platform: speed
+    name: "PWM Fan"
+    output: fanhub_pwm
+
+
+light:
+  - platform: esp32_rmt_led_strip
+    name: "LED Strip"
+    pin: GPIO5
+    num_leds: 60
+    rgb_order: GRB
+    chipset: ws2812
+    effects:
+      - addressable_rainbow:
+      - addressable_color_wipe:
+      - addressable_scan:
+
+

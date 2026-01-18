@@ -1,0 +1,70 @@
+alias: Wake house up when back home
+description: ""
+triggers:
+  - type: opened
+    device_id: 3d1b8e21b75100575266d759123bd7ce
+    entity_id: d89db4697c8dd2cb7c9b01271155b013
+    domain: binary_sensor
+    trigger: device
+conditions:
+  - condition: state
+    entity_id: light.livingroom_main_light
+    state:
+      - "off"
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - condition: state
+    entity_id: light.office_main_light
+    state:
+      - "off"
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - condition: state
+    entity_id: light.calex_smart_g125_clear_e27
+    state:
+      - "off"
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+actions:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - action: script.turn_on
+    metadata: {}
+    target:
+      entity_id: script.livingroom_mainlight_dim_startup_circular
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - action: light.turn_on
+    metadata: {}
+    target:
+      entity_id: light.office_main_light
+    data:
+      transition: 5
+      brightness_pct: 50
+      color_temp_kelvin: 4975
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - action: light.turn_on
+    metadata: {}
+    target:
+      entity_id: light.livingroom_main_light
+    data:
+      color_temp_kelvin: 4587
+      brightness_step_pct: 20
+mode: single

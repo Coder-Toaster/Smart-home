@@ -1,0 +1,62 @@
+alias: Corridor IR start lights
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.corridor_motion_sensor_occupancy
+    to:
+      - "on"
+conditions:
+  - condition: state
+    entity_id: light.front_door_corridor_2_spot
+    state:
+      - "off"
+actions:
+  - parallel:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          transition: 1
+          color_temp_kelvin: 2000
+          brightness_pct: 25
+        target:
+          entity_id: light.hue_spot_1
+      - action: light.turn_on
+        metadata: {}
+        target:
+          entity_id: light.hue_spot_2
+        data:
+          color_temp_kelvin: 2000
+          transition: 3
+          brightness_pct: 15
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - action: light.turn_on
+    metadata: {}
+    target:
+      entity_id: light.front_door_corridor_2_spot
+    data:
+      color_temp_kelvin: 3489
+      transition: 4
+      brightness_pct: 90
+  - if:
+      - condition: state
+        entity_id: binary_sensor.corridor_motion_sensor_occupancy
+        state:
+          - "off"
+        for:
+          hours: 0
+          minutes: 1
+          seconds: 0
+    then:
+      - action: light.turn_off
+        metadata: {}
+        target:
+          entity_id: light.front_door_corridor_2_spot
+        data:
+          transition: 10
+          flash: short
+mode: single

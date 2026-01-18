@@ -1,0 +1,52 @@
+alias: Shutdown P2S frame fan after 10 minutes
+description: "10 minuutin jälkeen kun printtaus on loppunut niin sammutetaan tuulettimet "
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.p2s_22e8ba581100200_current_stage
+    to:
+      - idle
+      - failed
+      - Finish
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 20
+conditions: []
+actions:
+  - action: fan.set_percentage
+    metadata: {}
+    data:
+      percentage: 35
+    target:
+      entity_id: fan.c3_enclosure_fan_pwm_fan
+  - if:
+      - condition: state
+        entity_id: fan.p2s_22e8ba581100200_cooling_fan
+        state:
+          - idle
+          - Failed
+          - Finish
+        for:
+          hours: 0
+          minutes: 20
+          seconds: 0
+    then:
+      - action: fan.set_percentage
+        metadata: {}
+        data:
+          percentage: 15
+        target:
+          entity_id: fan.printer_enclosure_fan_control_pwm_fan
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 5
+          milliseconds: 0
+      - action: fan.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: fan.printer_enclosure_fan_control_pwm_fan
+mode: single
+

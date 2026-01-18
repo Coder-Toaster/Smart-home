@@ -1,0 +1,36 @@
+alias: Office precense lights on - day
+description: |
+  Valot päälle liikkeestä kun on valoista
+triggers:
+  - type: occupied
+    device_id: b093d59a6daf0796860829e543018549
+    entity_id: 569217a36ecb17274ff3296fc791ec1f
+    domain: binary_sensor
+    trigger: device
+conditions:
+  - condition: sun
+    before: sunset
+    after: sunrise
+  - condition: state
+    entity_id: light.office_main_light
+    state:
+      - "off"
+  - condition: state
+    entity_id: light.light_stand
+    state:
+      - "off"
+actions:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      color_temp_kelvin: 5250
+      brightness_pct: 100
+      transition: 1
+    target:
+      entity_id: light.office_main_light
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.ikea_power_switch_1
+mode: single

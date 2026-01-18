@@ -1,0 +1,12 @@
+alias: "Automatic: turn apartment off when l&p have left"
+description: ""
+triggers:
+  - value_template: |
+      {{ not is_state('person.patrik', 'home')
+         and not is_state('person.laura', 'home') }}
+    for: "00:03:00"
+    trigger: template
+actions:
+  - target:
+      entity_id: automation.set_apartment_to_night_mode
+    action: automation.trigger
